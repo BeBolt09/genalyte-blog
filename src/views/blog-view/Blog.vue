@@ -5,6 +5,6 @@
   </template>
   
   <script setup lang="ts">
-  import BlogSection from '../components/BlogSection.vue';
+  import BlogSection from './components/BlogSection.vue';
   </script>
   
