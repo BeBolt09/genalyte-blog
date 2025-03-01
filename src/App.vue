@@ -1,3 +1,9 @@
+<script setup lang="ts">
+import NaviguationView from './components/NaviguationView.vue';
+</script>
 <template>
-    <router-view />
+    <div>
+        <NaviguationView />
+        <router-view />
+    </div>
 </template>

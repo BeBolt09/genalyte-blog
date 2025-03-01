@@ -1,10 +1,12 @@
+<script setup lang="ts">
+import BlogSection from './components/BlogSection.vue';
+
+
+</script>
 <template>
-    <div>
-      <BlogSection />
-    </div>
-  </template>
-  
-  <script setup lang="ts">
-  import BlogSection from './components/BlogSection.vue';
-  </script>
+  <div class="pt-20">
+    <BlogSection />
+  </div>
+</template>
+
   
