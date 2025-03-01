@@ -84,7 +84,7 @@ export default {
         },
         { 
           id: 14, 
-          title: 'New Tickets and Component/Composable Separation', 
+          title: 'New Tickets and Component Composable Separation', 
           date: 'Feb 18, 2025', 
           content: 'Got assigned new tickets for future of Chem/Hem Panels.\nWas instructed to separate composables and components for separation of concern.\nWorked on new file structure and separation of components and composables.' 
         },
@@ -146,7 +146,7 @@ export default {
 </script>
 
 <template>
-  <h1 class="text-3xl font-bold text-center mb-40 text-black">Progress 📈</h1>
+  <h1 class="text-3xl font-bold text-center mb-40 text-black">Activity feed 📈</h1>
   <div class="mb-40">
     <div v-for="group in groupedPosts" :key="group.week">
       <!-- Week header above each group of posts (which covers Monday to Friday) -->
