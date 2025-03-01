@@ -4,18 +4,18 @@ export default {
   data() {
     return {
       posts: [
-        { 
-          id: 1, 
-          title: 'Orientation and Training at Genalyte', 
-          date: 'Feb 3, 2025', 
-          content: 'Got introduced to the facilities, the Merlin, my workplace and completed most of the trainings. Dmytryi and I talked about some projects where I could be helpful.' 
-        },
-        { 
-          id: 2, 
-          title: 'Exploring CloudLab2 and Vue.js', 
-          date: 'Feb 5, 2025', 
-          content: 'Diving into Vue and understanding components, state management, and reactivity.' 
-        },
+        // { 
+        //   id: 1, 
+        //   title: 'Orientation and Training at Genalyte', 
+        //   date: 'Feb 3, 2025', 
+        //   content: 'Got introduced to the facilities, the Merlin, my workplace and completed most of the trainings. Dmytryi and I talked about some projects where I could be helpful.' 
+        // },
+        // { 
+        //   id: 2, 
+        //   title: 'Exploring CloudLab2 and Vue.js', 
+        //   date: 'Feb 5, 2025', 
+        //   content: 'Diving into Vue and understanding components, state management, and reactivity.' 
+        // },
         { 
           id: 3, 
           title: 'Introduction to Genalyte and QCDB Training', 
@@ -104,7 +104,7 @@ export default {
           id: 17, 
           title: 'Completing Unit Tests and File Structure Rework', 
           date: 'Feb 21, 2025', 
-          content: 'Completed unit tests.\nMet with Dmytro and established I should revert back to the original file structure. 😵‍💫\nFound working and correct file structure.\nCompleted changes to better file structure.\nSubmitted PR for review.' 
+          content: 'Completed unit tests.\nMet with Dmytro and established I should revert back to the original file structure. 😵‍💫Found working and correct file structure.\nCompleted changes to better file structure.\nSubmitted PR for review.' 
         },
         { 
           id: 18, 
@@ -118,6 +118,28 @@ export default {
   computed: {
     reversedPosts() {
       return [...this.posts].reverse();
+    },
+    groupedPosts() {
+      const groups = {};
+      // Reference start date: Monday, Feb 3, 2025
+      const firstMonday = new Date('Feb 3, 2025');
+      this.reversedPosts.forEach(post => {
+        const postDate = new Date(post.date);
+        // Calculate the difference in days between the post and the first Monday
+        const diffDays = Math.floor((postDate - firstMonday) / (1000 * 60 * 60 * 24));
+        // Determine week number (using a 7-day span; posts only exist on weekdays)
+        const weekNumber = Math.floor(diffDays / 7) + 1;
+        if (!groups[weekNumber]) {
+          groups[weekNumber] = [];
+        }
+        groups[weekNumber].push(post);
+      });
+      // Sort the week numbers descending so the most recent week appears first
+      const sortedWeekNumbers = Object.keys(groups).sort((a, b) => b - a);
+      return sortedWeekNumbers.map(week => ({
+        week,
+        posts: groups[week]
+      }));
     }
   }
 };
@@ -125,13 +147,21 @@ export default {
 
 <template>
   <h1 class="text-3xl font-bold text-center mb-40 text-black">Progress 📈</h1>
-  <div class="mb-80">
-    <div v-for="post in reversedPosts" :key="post.id" class="font-sans max-w-xl mx-auto mb-16 p-4 border border-gray-300 rounded-lg shadow-sm">
-      <div class="flex justify-between items-center mb-2">
-        <p class="text-gray-800 font-semibold">{{ post.title }}</p>
-        <p class="text-gray-600 text-sm">{{ post.date }}</p>
+  <div class="mb-40">
+    <div v-for="group in groupedPosts" :key="group.week">
+      <!-- Week header above each group of posts (which covers Monday to Friday) -->
+      <h2 class="text-lg font-bold mx-auto w-2/5 mb-4">Week {{ group.week }}</h2>
+      <div
+        v-for="post in group.posts"
+        :key="post.id"
+        class="font-sans mx-auto w-2/5 mb-16 p-4 border border-gray-300 rounded-lg shadow-lg"
+      >
+        <div class="flex justify-between items-center mb-2">
+          <p class="text-gray-800 font-semibold">{{ post.title }}</p>
+          <p class="text-gray-600 text-sm">{{ post.date }}</p>
+        </div>
+        <p class="text-gray-700 leading-relaxed">{{ post.content }}</p>
       </div>
-      <p class="text-gray-700 leading-relaxed">{{ post.content }}</p>
     </div>
   </div>
 </template>
