@@ -7,29 +7,11 @@
         :key="index"
         class="relative flex flex-col items-center text-center px-4"
       >
-        <!-- The milestone marker (circle or dot) -->
         <div class="w-4 h-4 bg-blue-500 rounded-full mb-2"></div>
 
-        <!-- The text -->
         <div class="mb-2 font-bold">{{ item.date }}</div>
         <div class="text-sm">{{ item.title }}</div>
 
-        <!-- Render the SVG curve from this item to the next item -->
-        <!-- <svg
-          v-if="index < timelineItems.length - 1"
-          class="absolute top-1/2 left-full"
-          :width="segmentWidth"
-          :height="segmentHeight"
-          viewBox="0 0 100 50" 
-          fill="none"
-        >
-          <path
-            d="M 0 25 C 25 0, 75 50, 100 25"
-            stroke="gray"
-            stroke-width="2"
-            fill="transparent"
-          />
-        </svg> -->
       </div>
     </div>
   </div>
